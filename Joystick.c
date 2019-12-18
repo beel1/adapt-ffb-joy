@@ -249,6 +249,8 @@ int Joystick_CreateInputReport(uint8_t inReportId, USB_JoystickReport_Data_t* co
 		
 	// Convert the raw input data to USB report
 
+	memset(outReportData, 0, sizeof(USB_JoystickReport_Data_t));
+
 	outReportData->reportId = 1;	// Input report ID 1
 
 	if (sw_id == SW_ID_FFPW)
@@ -258,6 +260,7 @@ int Joystick_CreateInputReport(uint8_t inReportId, USB_JoystickReport_Data_t* co
 		outReportData->Y = (sw_report[4] & 0xfc) << 2;
 		/* actually break for wheel */
 		outReportData->Throttle = 63-(sw_report[3] & 0x3f);
+		outReportData->Hat = 0xFF;
 		}
 	else
 		{
