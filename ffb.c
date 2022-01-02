@@ -539,7 +539,11 @@ void FfbHandle_DeviceControl(USB_FFBReport_DeviceControl_Output_Data_t *data)
 
 		// Disable auto-center spring and stop all effects
 //	???? The below would take too long?
+#ifdef ENABLE_STOP_DISABLES_AUTOCENTER
 		ffb->SetAutoCenter(0);
+#else
+		ffb->SetAutoCenter(1);
+#endif
 		pidState.effectBlockIndex = 0;
 		}
 	else if (control == 0x04)
