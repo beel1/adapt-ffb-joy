@@ -103,6 +103,7 @@ void Joystick_Init(void)
 	// Force feedback
 	FfbInitMidi();
 
+#ifdef ENABLE_ADDED_CONTROLS
 	// ADC for extra controls
 	DDRF = 0; // all inputs
 //	PORTF |= 0xff; // all pullups enabled
@@ -117,6 +118,10 @@ void Joystick_Init(void)
 	ADCSRA |= (1 << ADIE);  	// Enable ADC Interrupt 
 
 	ADCSRA |= (1 << ADSC); 		// Go ADC
+#else
+	DDRF = 0; // all inputs
+	PORTF |= 0xff; // all pullups enabled
+#endif
 	}
 
 /** Configures the board hardware and chip peripherals for the joystick's functionality. */
@@ -342,5 +347,7 @@ int Joystick_CreateInputReport(uint8_t inReportId, USB_JoystickReport_Data_t* co
 // seems to cause problems reading data from FFP joystick.
 ISR(ADC_vect) 
 	{
+#ifdef ENABLE_ADDED_CONTROLS
 	ADC_is_ready = 1;
+#endif
 	}
