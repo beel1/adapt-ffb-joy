@@ -241,7 +241,7 @@ typedef struct
 	uint8_t constants;
 	uint8_t triangles;
 	uint8_t sines;
-	uint8_t effectId[MAX_EFFECTS];
+	uint8_t effectId[MAX_EFFECTS+1];
 	} TDisabledEffectTypes;
 
 extern volatile TDisabledEffectTypes gDisabledEffects;
